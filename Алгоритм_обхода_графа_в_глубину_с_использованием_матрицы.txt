@@ -1,0 +1,50 @@
+#include <iostream>
+#include <iomanip>
+#include <fstream>
+#include <vector>
+using namespace std;
+
+const int n = 7;
+
+bool visited[n];
+
+
+void DFS(int v, int** matrix)
+{
+    visited[v] = true;
+    for (int j = 0; j < n; j++)
+        if ((matrix[v][j] != 0) && (!visited[j])) DFS(j, matrix);
+}
+
+
+
+int main(int argc, const char* argv[]) {
+
+    string filepath = "input.txt";
+    ifstream input(filepath);
+
+    int rowsCount, colsCount;
+    input >> rowsCount >> colsCount;
+
+    int** matrix = new int* [rowsCount];
+
+    for (unsigned i = 0; i < rowsCount; i++)
+    {
+        matrix[i] = new int[colsCount];
+        for (unsigned j = 0; j < colsCount; j++)
+            input >> matrix[i][j];
+
+    }
+    input.close();
+    DFS(0, matrix);
+    return 0;
+}
+
+input:
+0 1 1 1 1 0 0
+0 0 0 1 0 0 0
+0 0 0 0 0 1 1
+0 0 0 0 1 0 0
+0 0 0 0 0 0 0
+0 0 0 0 0 0 1
+0 0 0 0 0 0 0
